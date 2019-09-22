@@ -66,7 +66,6 @@ public class project2 {
 				back[bcount] = 1;
 			}
 			bcount--;
-			System.out.println(bcount);
 			while (!done) {
 				if (carry == 1) {
 					// System.out.println("carry part");
@@ -101,7 +100,7 @@ public class project2 {
 					count++;
 				}
 			}
-			System.out.println(str);
+
 			return str;
 		} else {
 			return biNum;
@@ -127,68 +126,68 @@ public class project2 {
 		System.out.println("Enter the decimal number to be converted to binary");
 		int decimalNum = readIntInput();
 		int arr[] = new int[8];
+		int back[] = new int[8];
 		int count = 0;
-		int scratch = Math.abs(decimalNum);// use positve number for calculations
-		
-		//remove after testing
-		System.out.println(scratch);
-
-		for (int i = 0; i <= 7; i++) {
-			arr[count] = scratch % 2;
+		int scratch = Math.abs(decimalNum);// use positive number for calculations
+		for (int i = 0; i <= 7; i++) {// Divide by base 2 and keep the remainder
+			arr[i] = scratch % 2;
 			scratch = scratch / 2;
-			count++;
 		}
-		for (int j = 7; j >= 0; j--) {
-			System.out.print(arr[j]);
-		}
-		System.out.println(scratch);
-		//stop remove
-
-		if (decimalNum < 0) {
-			int bcount = 7;
-			boolean done = false;
-			// Start: for carry in binary addition
-			int carry = 0;
-			// add one
-			if (arr[bcount] == 1) {
-				arr[bcount] = 0;
-				carry = 1;
-			} else {
-				arr[bcount] = 1;
-			}
-			bcount--;
-			 //System.out.println(bcount);
-			while (!done) {
-				if (carry == 1) {
-					// System.out.println("carry part");
-					switch (arr[bcount]) {
-					case 0:
-						arr[bcount] = 1;
-
-						carry = 0;
-						done = true;
-						break;
-					case 1:
-						arr[bcount] = 0;
-						carry = 1;
-
-					}
-
+		if (decimalNum < 0) {// flip the number then subtract 1
+			while (count < 8) {
+				if (arr[count] == 1) {
+					back[count] = 0;
+					count++;
 				} else {
-					done = true;
+					back[count] = 1;
+					count++;
 				}
-				bcount--;
 			}
-			// End add one
 
-			for (int q = 0; q <= 7; q++) {
-				System.out.print(arr[q]);
+			System.out.println();
+			count = 0;
+			int bcount = 0;
+			int carry = 0;
+			// while(count < 8) {
+			switch (back[bcount]) {
+			case 0:
+				back[bcount] = 1;
+				carry = 1;
+				break;
+			case 1:
+				// System.out.println();
+				// System.out.println(back[bcount]);
+				back[bcount] = 0;
+				bcount++;
+				// System.out.println(back[bcount]);
+				back[bcount] = 1;
+
+				break;
 			}
+			// }
+			if (carry == 1) {
+				while (count < 7) {
+					if (back[bcount] == 0) {
+						back[bcount] = 1;
+						bcount--;
+					} else {
+						back[bcount] = 1;
+						count = 7;
+					}
+					count++;
+				}
+			}
+			for (int j = 7; j >= 0; j--) {
+				System.out.print(back[j]);
+			}
+
 		} else {
+
 			for (int j = 7; j >= 0; j--) {
 				System.out.print(arr[j]);
 			}
 		}
+
 		System.out.println();
 	}
 
