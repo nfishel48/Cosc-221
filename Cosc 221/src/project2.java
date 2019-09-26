@@ -1,10 +1,12 @@
+package inclass;
 
 /**
  * @author Nathaniel Fishel E01584460
  * @course Cosc 221
  * @date September 12 2019
+ * @lab project 2
  * 
- * @description This program will convert unsigned binary numbers to decimal and decimal to binary
+ * @description This program will convert signed binary numbers to decimal and decimal to binary
  *
  */
 import java.util.*;
@@ -14,11 +16,11 @@ public class project2 {
 
 	public static boolean reboo(String input) {
 		boolean negitive = false;
-		if (input.charAt(0) == '1') {
+		if (input.charAt(0) == '1') {//checks the sign of the number
 			negitive = true;
 		}
 
-		return negitive;
+		return negitive; //returns if the number is positive or negitive
 	}
 
 	public static String checkSign(String biNum) {
@@ -128,6 +130,7 @@ public class project2 {
 		int arr[] = new int[8];
 		int back[] = new int[8];
 		int count = 0;
+		int extreme = Math.abs(decimalNum);
 		int scratch = Math.abs(decimalNum);// use positive number for calculations
 		for (int i = 0; i <= 7; i++) {// Divide by base 2 and keep the remainder
 			arr[i] = scratch % 2;
@@ -142,14 +145,20 @@ public class project2 {
 					back[count] = 1;
 					count++;
 				}
+			}//back[] now holds the reverse of the binary number if the number is negitive.
+			if(extreme == 128) {
+			System.out.println("The Binary version of "+decimalNum+" is:");
+			for (int j = 7; j >= 0; j--) { //prints
+				System.out.print(arr[j]);
 			}
-
+			}
+			else {
 			System.out.println();
 			count = 0;
 			int bcount = 0;
 			int carry = 0;
 			// while(count < 8) {
-			switch (back[bcount]) {
+			switch (back[bcount]) {// if the first number is zero add one 
 			case 0:
 				back[bcount] = 1;
 				carry = 1;
@@ -165,7 +174,7 @@ public class project2 {
 				break;
 			}
 			// }
-			if (carry == 1) {
+			if (carry == 1) { // does the carry operation
 				while (count < 7) {
 					if (back[bcount] == 0) {
 						back[bcount] = 1;
@@ -176,22 +185,31 @@ public class project2 {
 					}
 					count++;
 				}
-			}
-			for (int j = 7; j >= 0; j--) {
+				System.out.println("The Binary version of "+decimalNum+" is:");
+			for (int j = 7; j >= 0; j--) { //prints
 				System.out.print(back[j]);
 			}
-
-		} else {
-
-			for (int j = 7; j >= 0; j--) {
-				System.out.print(arr[j]);
+			}
 			}
 		}
 
-		System.out.println();
-	}
+		 else {
+			 System.out.println("The Binary version of "+decimalNum+" is:");
 
-	public static void convertTodecimal() {
+			for (int j = 7; j >= 0; j--) {//prints
+				System.out.print(arr[j]);
+			}
+		}
+		
+		
+
+		System.out.println();
+		
+	
+	}
+	
+
+	public static void convertTodecimal() {// this takes a binary number and converts the decimal
 		System.out.println("Enter the binary number to be converted to decimal");
 		Scanner stdIn = new Scanner(System.in);
 		String input = stdIn.nextLine();
@@ -218,7 +236,7 @@ public class project2 {
 	}
 
 	public static void menu() {
-		System.out.println("Main Menu");
+		System.out.println("Main Menu");//This prints the main menu
 		System.out.println("Please enter a choice \n 1: Convert decimal to binary\n 2: Convert binary to decimal");
 		int choice = readIntInput();
 		boolean done = false;
@@ -240,7 +258,7 @@ public class project2 {
 		again();
 	}
 
-	public static void again() {
+	public static void again() {//This calls the main menu again or exits the program
 		System.out.println("Press 1 if you would to return to the menu\n any other int will exit");
 		int choice = readIntInput();
 		if (choice == 1) {
@@ -253,3 +271,41 @@ public class project2 {
 		menu();
 	}
 }
+/**
+Main Menu
+Please enter a choice 
+ 1: Convert decimal to binary
+ 2: Convert binary to decimal
+1
+Enter the decimal number to be converted to binary
+-45
+
+The Binary version of -45 is:
+11010011
+Press 1 if you would to return to the menu
+ any other int will exit
+1
+Main Menu
+Please enter a choice 
+ 1: Convert decimal to binary
+ 2: Convert binary to decimal
+1
+Enter the decimal number to be converted to binary
+24
+The Binary version of 24 is:
+00011000
+Press 1 if you would to return to the menu
+ any other int will exit
+1
+Main Menu
+Please enter a choice 
+ 1: Convert decimal to binary
+ 2: Convert binary to decimal
+2
+Enter the binary number to be converted to decimal
+10011100
+The converted number is: -100
+Press 1 if you would to return to the menu
+ any other int will exit
+0
+**/
