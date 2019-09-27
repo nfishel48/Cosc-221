@@ -14,7 +14,7 @@ package inclass;
 import java.util.*;
 import java.lang.Math;
 
-public class project2 {
+public class project3 {
 	
 	static String p3Input() {
 		System.out.print("Enter a Binary Number: ");
@@ -261,6 +261,11 @@ public class project2 {
 				convertTodecimal();
 				done = true;
 				break;
+				
+			case 3:
+				add();
+				done = true;
+				break;
 
 			}
 
@@ -277,7 +282,7 @@ public class project2 {
 			System.exit(0);
 	}
 	
-	static String add () {
+	static void add () {
 		String b1 = p3Input();
 		String b2 = p3Input();//Get both numbers from the user
 		int arr1[] = new int[8];
@@ -288,19 +293,23 @@ public class project2 {
 			arr1[i] = b1.charAt(i) - 48;
 			arr2[i] = b2.charAt(i) - 48;//Read through the the number placing single numbers into spots in arrays
 		}
-		int carry = 0;
 		//loop through array to do binary additon with single digits
-		for(int j = 7; j>=0; j--) {
-			// 1+1= 0 with carry of 1
+		for(int j = 0; j<=7; j++) {//flip so does not overwrite
+			System.out.println("arr1: "+arr1[j]+" arr2: "+arr2[j]);
+			// 1+1= 0 when no remainder
 			if(arr1[j] == 1 && arr2[j] == 1) {
 				arr3[j] = 0;
-				carry = 1;
+				if(j+1 <= 7) {
+					System.out.println("here");
+				arr3[j-1] = 1;
+				}
 			}
-			// 1+0 = 1
+			// 1+0 = 1 with no remainder
 			else if(arr1[j] == 1 && arr2[j] == 0) {
 				arr3[j] = 1;
+				
 			}
-			// 0+1 = 1
+			// 0+1 = 1 with no remainder
 			else if(arr1[j] == 0 && arr2[j] == 1) {
 				arr3[j] = 1;
 			}
@@ -308,9 +317,12 @@ public class project2 {
 			else {
 				arr3[j] = 0;
 			}
-			//add the carry
-			if(carry = 1)
+				
 		}
+		for(int q = 0; q<= 7; q++) {
+			System.out.print(arr3[q]);
+		}
+		System.out.println();
 	}
 	
 	
@@ -319,5 +331,4 @@ public class project2 {
 	}
 }
 /**
-
 **/
