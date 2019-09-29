@@ -219,10 +219,8 @@ public class project3 {
 	}
 	
 
-	public static void convertTodecimal() {// this takes a binary number and converts the decimal
-		System.out.println("Enter the binary number to be converted to decimal");
-		Scanner stdIn = new Scanner(System.in);
-		String input = stdIn.nextLine();
+	public static void convertTodecimal(String input) {// this takes a binary number and converts the decimal
+		
 		boolean negitive = reboo(input);
 		input = checkSign(input);
 		String biNum = input;
@@ -239,34 +237,28 @@ public class project3 {
 
 		}
 		if (negitive == true) {
-			System.out.println("The converted number is: -" + count);
+			System.out.println("The decimal form of this number is : -" + count);
 		} else {
-			System.out.println("The converted number is: " + count);
+			System.out.println("The decimal form of this number is : " + count);
 		}
 	}
 
 	public static void menu() {
 		System.out.println("Main Menu");//This prints the main menu
-		System.out.println("Please enter a choice \n 1: Convert decimal to binary\n 2: Convert binary to decimal");
+		System.out.println("Please enter a choice \n 1: Add two binary numbers\n 2: Convert binary to decimal");
 		int choice = readIntInput();
 		boolean done = false;
 		while (done != true) {
 			switch (choice) {
 			case 1:
-				convertTobinary();
-				done = true;
-				break;
-
-			case 2:
-				convertTodecimal();
-				done = true;
-				break;
-				
-			case 3:
 				add();
 				done = true;
 				break;
 
+			case 2:
+				//convertTodecimal();
+				done = true;
+				break;
 			}
 
 		}
@@ -284,10 +276,13 @@ public class project3 {
 	
 	static void add () {
 		String b1 = p3Input();
+		convertTodecimal(b1);
 		String b2 = p3Input();//Get both numbers from the user
+		convertTodecimal(b2);
 		int arr1[] = new int[8];
 		int arr2[] = new int[8];//arrays to store Binary numbers in
 		int arr3[] = new int[8];
+		
 		
 		for(int i = 0; i<=7; i++) {
 			arr1[i] = b1.charAt(i) - 48;
@@ -295,12 +290,11 @@ public class project3 {
 		}
 		//loop through array to do binary additon with single digits
 		for(int j = 0; j<=7; j++) {//flip so does not overwrite
-			System.out.println("arr1: "+arr1[j]+" arr2: "+arr2[j]);
+			//System.out.println("arr1: "+arr1[j]+" arr2: "+arr2[j]);
 			// 1+1= 0 when no remainder
 			if(arr1[j] == 1 && arr2[j] == 1) {
 				arr3[j] = 0;
-				if(j+1 <= 7) {
-					System.out.println("here");
+				if(j-1 > 0) {
 				arr3[j-1] = 1;
 				}
 			}
@@ -319,10 +313,17 @@ public class project3 {
 			}
 				
 		}
-		for(int q = 0; q<= 7; q++) {
-			System.out.print(arr3[q]);
+		//for two negative
+		if(arr1[0] == 1 && arr2[0] == 1) {
+			arr3[0] = 1;
 		}
-		System.out.println();
+		StringBuffer sb = new StringBuffer();
+		for(int c = 0; c<=7; c++) {
+			sb.append(arr3[c]);
+		}
+		String fin = sb.toString();
+		System.out.println("The sum is "+fin);
+		convertTodecimal(fin);
 	}
 	
 	
